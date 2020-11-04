@@ -1,0 +1,105 @@
+info:
+  app:
+    name: "streams-demo-app"
+
+kafka:
+  bootstrapServers: localhost:9094
+#  schemaRegistryUrl: dummy
+  partitions: 3
+  replicationFactor: 1
+
+  # Input topics
+  users: users
+  posts: posts
+  subscriptions: subscriptions
+
+  # Output topics
+  eventMails: blog.events.mail
+  userInfo: blog.user.info
+  userSubscriptionCount: blog.user.subscription.count
+
+  configuration:
+    "[bootstrap.servers]": ${kafka.bootstrapServers}
+#    "[schema.registry.url]": ${kafka.schemaRegistryUrl}
+    "[application.id]": ${info.app.name}
+#    "[default.key.serde]": "org.apache.kafka.common.serialization.Serdes.StringSerde"
+#    "[default.value.serde]": "org.apache.kafka.common.serialization.Serdes.StringSerde"
+    "[replication.factor]": ${kafka.replicationFactor}
+    "[auto.offset.reset]": "earliest"
+
+  topics:
+    input:
+      users:
+        name: ${kafka.users}
+        num-partitions: ${kafka.partitions}
+        num-replicas: ${kafka.replicationFactor}
+        cleanup:
+          policy: "compact"
+      posts:
+        name: ${kafka.posts}
+        num-partitions: ${kafka.partitions}
+        num-replicas: ${kafka.replicationFactor}
+        cleanup:
+          policy: "compact"
+      subscriptions:
+        name: ${kafka.subscriptions}
+        num-partitions: ${kafka.partitions}
+        num-replicas: ${kafka.replicationFactor}
+        cleanup:
+          policy: "compact"
+    output:
+      eventMails:
+        name: ${kafka.eventMails}
+        num-partitions: ${kafka.partitions}
+        num-replicas: ${kafka.replicationFactor}
+        cleanup:
+          policy: "compact"
+      userInfo:
+        name: ${kafka.userInfo}
+        num-partitions: ${kafka.partitions}
+        num-replicas: ${kafka.replicationFactor}
+        cleanup:
+          policy: "compact"
+      userSubscriptionCount:
+        name: ${kafka.userSubscriptionCount}
+        num-partitions: ${kafka.partitions}
+        num-replicas: ${kafka.replicationFactor}
+        cleanup:
+          policy: "compact"
+
+spring:
+  jmx:
+    enabled: true
+  security:
+    user:
+      roles: admin
+      name: admin
+      password: demo
+  jackson:
+    serialization:
+      indent_output: true
+  output.ansi.enabled: never
+
+management:
+  metrics.export.prometheus.enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: [ health,info,env,metrics,refresh,prometheus,loggers ]
+        exclude: [ shutdown ]
+  endpoint:
+    health:
+      enabled: true
+      show-details: when_authorized
+    info:
+      enabled: true
+    env:
+      enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    loggers:
+      enabled: true
+    shutdown:
+      enabled: false

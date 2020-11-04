@@ -1,0 +1,24 @@
+replicaCount: 1
+  tag: 0.0.1
+  repository: dummy
+service:
+  type: ClusterIP
+ingress:
+  enabled: false
+resources:
+  limits:
+    cpu: 1
+    memory: 1Gi
+  requests:
+    cpu: 400m
+    memory: 1Gi
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+rbac:
+  enabled: true
+env:
+  spring_application_json: {}

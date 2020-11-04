@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "helm.name" . }}
+  labels:
+    app: {{ template "helm.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+{{- if .Values.deployment }}
+{{- if .Values.deployment.annotations }}
+{{ toYaml .Values.deployment.annotations | indent 4 }}
+{{- end }}
+{{- end }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "helm.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "helm.name" . }}
+        release: {{ .Release.Name }}
+        logging: json
+    spec:
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      containers:
+      - name: api
+        image: {{ .Values.image.repository}}:{{ .Values.image.tag }}
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 90
+          periodSeconds: 15
+          timeoutSeconds: 5
+        env:
+        - name: JAVA_TOOL_OPTIONS
+          value: {{ .Values.java_tool_options }}
+        - name: SPRING_APPLICATION_JSON
+          value: {{ .Values.env.spring_application_json | toJson | quote }}
+        volumeMounts:
+        - name: config-vol
+          mountPath: /config
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      volumes:
+      - name: config-vol
+        configMap:
+          name: application.yml
