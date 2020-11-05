@@ -10,4 +10,5 @@ class KafkaOutputTopics {
     final var eventMails: TopicConfiguration = TopicConfiguration()
     final var userInfo: TopicConfiguration = TopicConfiguration()
     final var userSubscriptionCount: TopicConfiguration = TopicConfiguration()
+    final var userSubscribersCount: TopicConfiguration = TopicConfiguration()
 }

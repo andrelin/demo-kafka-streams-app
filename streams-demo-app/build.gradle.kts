@@ -28,9 +28,15 @@ configurations {
     }
 }
 
+val mavenUser: String = properties["mavenUser"] as String
+val mavenPassword: String = properties["mavenPassword"] as String
+
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+        url = uri("https://packages.confluent.io/maven/")
+    }
     jcenter()
 }
 
@@ -55,6 +61,8 @@ dependencies {
     implementation("org.apache.kafka:kafka-clients:${Versions.kafka}")
 //    implementation("io.confluent:kafka-schema-registry-client:${Versions.confluent}")
 //    implementation("io.confluent:kafka-streams-avro-serde:${Versions.confluent}")
+    implementation("io.confluent:kafka-schema-registry-client:${Versions.confluent}")
+    implementation("io.confluent:kafka-streams-avro-serde:${Versions.confluent}")
 
     implementation("io.micrometer:micrometer-core")
     implementation("io.micrometer:micrometer-registry-prometheus")
