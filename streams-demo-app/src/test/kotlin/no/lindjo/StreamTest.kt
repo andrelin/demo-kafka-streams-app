@@ -95,7 +95,7 @@ class StreamTest {
         userInput.pipeInput("", testUser2)
 
         // Create Input
-        val subscriptionDto = SubscriptionDto(username = "user1", subscribesTo = "user2")
+        val subscriptionDto = SubscriptionDto(username = "user1", subscribeTo = "user2")
 
         // Send Input
         subscriptionInput.pipeInput("", subscriptionDto)
@@ -126,7 +126,7 @@ class StreamTest {
         val testUser2 = TestData.testUser("2")
         userInput.pipeInput("", testUser1)
         userInput.pipeInput("", testUser2)
-        val subscriptionDto = SubscriptionDto(username = "user1", subscribesTo = "user2")
+        val subscriptionDto = SubscriptionDto(username = "user1", subscribeTo = "user2")
         subscriptionInput.pipeInput("", subscriptionDto)
 
         // Create Input

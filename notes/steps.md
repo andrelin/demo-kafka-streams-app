@@ -1,4 +1,6 @@
-# Do steps in docker-setup.txt
+# Run setup-dockers.sh
+
+## Start console with kafka cli
 docker run -it \
 --net=kafka-demo \
 --rm confluentinc/cp-kafka:5.4.3 \
@@ -28,13 +30,16 @@ kafka-console-consumer --bootstrap-server kafka:9092 --topic subscriptions --pro
 kafka-console-consumer --bootstrap-server kafka:9092 --topic blog.user.subscription.count \
 --property print.key=true --from-beginning --value-deserializer=org.apache.kafka.common.serialization.LongDeserializer
 
+kafka-console-consumer --bootstrap-server kafka:9092 --topic blog.user.subscribers.count \
+--property print.key=true --from-beginning --value-deserializer=org.apache.kafka.common.serialization.LongDeserializer
+
 # Step 3
 
 # Step 4
-kafka-console-consumer --bootstrap-server kafka:9092 --topic blog.events.mail --property print.key=true --from-beginning
-
 docker run -it \
   --net=kafka-demo \
   create-post
+
+kafka-console-consumer --bootstrap-server kafka:9092 --topic blog.events.mail --property print.key=true --from-beginning
 
 # Do steps in docker-teardown.txt

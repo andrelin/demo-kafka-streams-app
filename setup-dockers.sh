@@ -4,7 +4,7 @@ cd python/create-user
 docker build -t create-user .
 
 cd ../create-post
-docker build -t create-posts .
+docker build -t create-post .
 
-cd ../create-subscriptions
-docker build -t create-subscriptions .
+cd ../create-subscription
+docker build -t create-subscription .

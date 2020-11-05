@@ -1,8 +1,8 @@
 package no.lindjo.model
 
-data class SubscriptionDto (
+data class SubscriptionDto(
         val username: String,
-        val subscribesTo:String
+        val subscribeTo: String
 ) {
     constructor() : this("", "")
 }

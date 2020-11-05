@@ -91,7 +91,8 @@ class BlogTopologyBuilder(
 
         // 2b Subscriber count
         subscriptionStream
-                .groupBy({ _, v: SubscriptionDto -> v.subscribesTo }, Grouped.with(stringSerde, subscriptionSerde))
+                .peek { k, v -> logger.info("{} -- {}", k, v) }
+                .groupBy ({ k, v: SubscriptionDto -> v.subscribeTo }, Grouped.with(stringSerde, subscriptionSerde))
                 .count()
                 .toStream()
                 .peek { k, v -> logger.info("{} has {} subscriber(s)", k, v) }
@@ -102,7 +103,7 @@ class BlogTopologyBuilder(
 
     private fun aggregateSubscribers(subscriptionStream: KStream<String, SubscriptionDto>): KTable<String, ListDto> {
         val subscribersTable: KTable<String, ListDto> = subscriptionStream
-                .selectKey { _, v -> v.subscribesTo }
+                .selectKey { _, v -> v.subscribeTo }
                 .groupByKey(Grouped.with(stringSerde, subscriptionSerde))
                 .aggregate({ ListDto() },
                         { _, v, subscriptions ->

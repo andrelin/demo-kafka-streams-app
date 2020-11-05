@@ -2,7 +2,7 @@ from kafka import KafkaProducer
 import json
 
 USERNAME = "username"
-SUBSCRIBE_TO = "subscribeto"
+SUBSCRIBE_TO = "subscribeTo"
 
 TOPIC = "subscriptions"
 
@@ -16,10 +16,10 @@ def produceToTopic(subscription):
     producer.send(TOPIC, value=subscription)
 
 
-def createSubscription(username, subscribeto):
+def createSubscription(username, subscribeTo):
     subscription = {}
     subscription[USERNAME] = username
-    subscription[SUBSCRIBE_TO] = subscribeto
+    subscription[SUBSCRIBE_TO] = subscribeTo
     return subscription
 
 produceToTopic(createSubscription("user1", "user1"))
@@ -31,9 +31,9 @@ produceToTopic(createSubscription("user4", "user3"))
 
 while True:
     username = input("Username:")
-    subscribeto = input("Subscribe to:")
+    subscribeTo = input("Subscribe to:")
 
-    produceToTopic(createSubscription(username, subscribeto))
+    produceToTopic(createSubscription(username, subscribeTo))
 
 
 
