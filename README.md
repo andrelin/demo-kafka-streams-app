@@ -1,5 +1,6 @@
 # Kafka streams demo
 Demo av diverse kafka streams konsepter.
+Dette prosjektet er basert på https://github.com/knowit/kafka-demo
 
 ## Hvordan kjøre
 Det står forklart i notes/Steps.txt
