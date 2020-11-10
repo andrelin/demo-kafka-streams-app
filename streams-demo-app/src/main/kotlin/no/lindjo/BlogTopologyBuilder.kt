@@ -117,7 +117,11 @@ class BlogTopologyBuilder(
         return subscribersTable
     }
 
-    private fun sendNotifications(builder: StreamsBuilder, subscribersTable: KTable<String, ListDto>, userInfoTable: KTable<String, UserDto>?) {
+    private fun sendNotifications(
+            builder: StreamsBuilder,
+            subscribersTable: KTable<String, ListDto>,
+            userInfoTable: KTable<String, UserDto>?
+    ) {
         val postStream: KStream<String, PostDto> = builder.stream(kafkaInputTopics.posts.name, Consumed.with(stringSerde, postSerde))
 
         postStream
