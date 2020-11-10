@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
-  tag: 0.0.1
-  repository: dummy
+  tag: 0.0.2
+  repository: eu.gcr.io/andrelin-dev/streams-demo-app
 service:
   type: ClusterIP
 ingress:

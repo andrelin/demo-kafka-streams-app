@@ -92,7 +92,7 @@ class BlogTopologyBuilder(
         // 2b Subscriber count
         subscriptionStream
                 .peek { k, v -> logger.info("{} -- {}", k, v) }
-                .groupBy ({ k, v: SubscriptionDto -> v.subscribeTo }, Grouped.with(stringSerde, subscriptionSerde))
+                .groupBy ({ _, v: SubscriptionDto -> v.subscribeTo }, Grouped.with(stringSerde, subscriptionSerde))
                 .count()
                 .toStream()
                 .peek { k, v -> logger.info("{} has {} subscriber(s)", k, v) }

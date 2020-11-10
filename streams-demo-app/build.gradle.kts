@@ -28,9 +28,6 @@ configurations {
     }
 }
 
-val mavenUser: String = properties["mavenUser"] as String
-val mavenPassword: String = properties["mavenPassword"] as String
-
 repositories {
     mavenLocal()
     mavenCentral()
