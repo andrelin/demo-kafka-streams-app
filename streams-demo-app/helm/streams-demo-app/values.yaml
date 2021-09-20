@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  tag: 0.0.2
+  tag: 0.0.3
   repository: eu.gcr.io/andrelin-dev/streams-demo-app
 service:
   type: ClusterIP

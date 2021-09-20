@@ -3,7 +3,7 @@
 ## Start console with kafka cli
 docker run -it \
 --net=kafka-demo \
---rm confluentinc/cp-kafka:5.4.3 \
+--rm confluentinc/cp-kafka:latest \
 bash
 
 # docker build pyton producers (in corresponding folders)

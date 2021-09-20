@@ -1,0 +1,7 @@
+{
+  "kafka-demo":{
+    "bootstrap.servers": "localhost:9094",
+    "name": "Kafka-Demo",
+    "request.timeout.ms": "5000"
+  }
+}
