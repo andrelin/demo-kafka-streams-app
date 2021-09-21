@@ -19,6 +19,7 @@ Kommenter gjerne inn ett og et steg i koden etterhvert som du gjør stegene
 * Join
 * FlatMap
 
+### KafDrop: http://localhost:19000/
 
 ## Presentasjon
 https://docs.google.com/presentation/d/17E4VV3vvkw0-wali8urixX_Df2gdyLN1/edit?usp=sharing&ouid=101623455846125879995&rtpof=true&sd=true
